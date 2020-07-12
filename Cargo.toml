@@ -10,8 +10,8 @@ crate-type = ["cdylib", "rlib"]
 [features]
 #default = ["wee_alloc", "simple_replace"]
 #default = ["simple_replace"]
-
-default = ["wee_alloc", "regex"]
+#default = ["wee_alloc", "regex"]
+default = ["wee_alloc", "tera"]
 
 simple_replace = []
 
@@ -19,7 +19,14 @@ simple_replace = []
 cfg-if = "0.1.2"
 wasm-bindgen = "0.2"
 wee_alloc = { version = "0.4.2", optional = true }
-regex = { version = "1.3.9", optional = true, default-features = false, features = ["std"] }
+
+# switch between these to change size of the module with the regex feature
+#regex = { version = "1", optional = true }
+regex = { version = "1", optional = true, default-features = false, features = ["std"] }
+
+# switch between these to change size of the module with the tera feature
+tera = { version = "1", optional = true }
+#tera = { version = "1", optional = true, default-features = false }
 
 [profile.release]
 # Tell `rustc` to optimize for small code size.
