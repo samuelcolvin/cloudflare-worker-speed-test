@@ -16,5 +16,5 @@ cfg_if! {
 
 #[wasm_bindgen]
 pub fn render_template(template: String, name: String) -> String {
-    template.replace("{{ name }}", &name)
+    (template + "\n\n(rust, simple replace)").replace("{{ name }}", &name)
 }
