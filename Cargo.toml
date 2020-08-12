@@ -8,11 +8,13 @@ edition = "2018"
 crate-type = ["cdylib", "rlib"]
 
 [features]
+#default = ["wee_alloc", "no_std"]
 #default = ["wee_alloc", "simple_replace"]
 #default = ["simple_replace"]
 #default = ["wee_alloc", "regex"]
 default = ["wee_alloc", "tera"]
 
+#no_std = []
 simple_replace = []
 
 [dependencies]

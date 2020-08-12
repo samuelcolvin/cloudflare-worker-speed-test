@@ -1,5 +1,4 @@
-extern crate cfg_if;
-extern crate wasm_bindgen;
+// #![no_std]
 
 use cfg_if::cfg_if;
 use wasm_bindgen::prelude::*;
@@ -9,6 +8,15 @@ cfg_if! {
         use wee_alloc;
         #[global_allocator]
         static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+    }
+}
+
+cfg_if! {
+    if #[cfg(feature = "no_std")] {
+        #[wasm_bindgen]
+        pub fn render_template(_template: &str, _name: &str) -> JsValue {
+            JsValue::from_str("(no_std)")
+        }
     }
 }
 
