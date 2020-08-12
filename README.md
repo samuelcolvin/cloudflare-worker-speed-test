@@ -1,20 +1,29 @@
 # CloudFlare worker speed test
 
+---
+
+**Update**: after changes to how cloudflare compiles WebAssembly described 
+[here](https://community.cloudflare.com/t/fixed-cloudflare-workers-slow-with-moderate-sized-webassembly-bindings/184668/16?u=samuelcolvin)
+the performance of CloudFlare workers with large wasm modules has improved enormously.
+
+For the largest case below the response time has dropped from **2844ms** to **211ms**.
+
+---
+
 See https://community.cloudflare.com/t/cloudflare-workers-very-slow-with-moderate-sized-webassembly-bindings/184668/12
 
-This worker does one very simple thing it substitutes the variable `{{ name }}` in a string and returns that string.
+This worker does one very simple thing: it substitutes the variable `{{ name }}` in a string and returns that string.
 
 By default the template is `Hello, {{ name }}` and the value of name is `world`, both `template` and `name` can
-be customised using get parameters.
+be customised using `GET` parameters.
 
 The substitution can be done in the the following ways:
 * in javascript using `replace`
 * in rust use string `replace`
 * in rust using [regex](https://crates.io/crates/regex) `replace_all`
-* use a tera [tera](https://crates.io/crates/tera) `one_off`
+* in rust using [tera](https://crates.io/crates/tera) `one_off`
 
-Using the following means of substitution varies the was module from non existing, from non existent, to small, 
-medium and large.
+Using these means of substitution varies the wasm module from non existent, to small, medium and large.
 
 ## Performance results
 
